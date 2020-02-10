@@ -8,7 +8,10 @@ def getCategoryMembers(categorymembers, level=0, max_level=MAX_LEVEL):
     for c in categorymembers.values():
         members.add(c.title)
         if c.ns == wikipediaapi.Namespace.CATEGORY and level < max_level:
-            members = members.union(getCategoryMembers(c.categorymembers, level=level+1,max$
+            members = members.union(getCategoryMembers(
+                    c.categorymembers, level=level+1,max_level=max_level
+                                                      )
+                                   )
     return members
 
 wiki = wikipediaapi.Wikipedia('en')
