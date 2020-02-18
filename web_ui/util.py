@@ -22,13 +22,8 @@ def extractAttr(res,attribute_name,decode_func=lambda x:x):
 
 
 def getIdFromCentroidId(rds,centroid_indices):
-#     doc_ids = ''
-#     for i in centroid_indices:
-#         doc_ids += rds[str(i)]+JSON_SEPARATOR
-#     doc_ids = doc_ids.strip(JSON_SEPARATOR).split(JSON_SEPARATOR)
-#     return doc_ids
 
-    return [id for i in centroid_indices for id in rds[str(i)]
+    return [id for i in centroid_indices for id in rds[str(i)]]
 
 
 def similarity(vec1,vec2):

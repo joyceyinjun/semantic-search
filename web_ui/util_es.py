@@ -4,7 +4,9 @@ from elasticsearch.helpers import scan,bulk
 from requests_aws4auth import AWS4Auth
 import json
 
-from util import extractAttr,NUM_ID_LENGTH
+from util import extractAttr
+
+NUM_ID_LENGTH = 16
 
 
 class esDocument:
@@ -151,5 +153,5 @@ region = ''
 INDEX_NAME = 'index'
 TYPE_NAME = '_doc'
 
-esdoc = edDocument(host,region,INDEX_NAME,TYPE_NAME)
+esdoc = esDocument(host,region,INDEX_NAME,TYPE_NAME)
 

@@ -14,7 +14,7 @@ rds = fetchRedis()
 N_CENTROIDS = 1
 N_QUERY_RETURN = 20
 
-KMEANS_PKL = 's3a://bucket/kmeans_300.pkl'
+KMEANS_PKL = ''
 faissKmeansIndex = faissLoadKmeans(KMEANS_PCK)
 
 
