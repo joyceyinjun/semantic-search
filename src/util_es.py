@@ -67,7 +67,7 @@ class esDocument:
                       body=body
                      )
 
-    def ScrooExtractAttr(self,scroll_size,attribute_name,decode_func):
+    def ScrollExtractAttr(self,scroll_size,attribute_name,decode_func):
 
         vectors = []
 
