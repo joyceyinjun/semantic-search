@@ -70,7 +70,7 @@ def bertVectorize(str):
     vectors = []
     for k, result in enumerate(results):
         split_sentences.append(' '.join(result[0]))
-        vectors.append(np.sum(np.array(result[1]),axis=0).astype('float32')[:DIM_BERT].toli$
+        vectors.append(np.sum(np.array(result[1]),axis=0).astype('float32')[:DIM_BERT].tolist())
     return SENTENCE_SEPARATOR.join(split_sentences), vectors
 
 def convertDict(record):
