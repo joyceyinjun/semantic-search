@@ -15,7 +15,7 @@ N_CENTROIDS = 100
 N_QUERY_RETURN = 20
 
 KMEANS_PKL = ''
-faissKmeansIndex = faissLoadKmeans(KMEANS_PCK)
+faissKmeansIndex = faissLoadKmeans(KMEANS_PKL)
 
 
 
@@ -32,17 +32,24 @@ def webQuery(faissKmeansIndex,query,n_query_return=N_QUERY_RETURN):
 
 
     ## part 2: import vectors from direct match
-    doc_ids_match, vectors_match = \
-               esdoc.LoadFromMatch(query)
+    ##         remove duplicate from part 1
+    doc_ids_match, vectors_match = esdoc.LoadFromMatch(query)
+    non_duplicate_indices = [i for (i,id) in enumerate(doc_ids_match)\
+                             if id not in docs_ids]
+    doc_ids_match = [id for (i,id) in enumerate(doc_ids_match)\
+                     if i not in non_duplicate_indices]
+    vectors_match = [vec for (i,vec) in enumerate(vectors_match)\
+                     if i not in non_duplicate_indices]
+    
     doc_ids += doc_ids_match
     faissIndex.add(np.squeeze(np.array(vectors_match)).astype('float32'))
 
 
 
-    distanes, indices = faissIndex.search(query_vector,n_query_return)
+    distances, indices = faissIndex.search(query_vector,n_query_return)
     indices = [x for x in indices[0] if x >= 0]
 
-    return  esdoc.ExtractLinesForDisplay(doc_ids,indices)
+    return esdoc.ExtractLinesForDisplay(doc_ids,indices)
 
 
 
