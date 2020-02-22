@@ -112,7 +112,7 @@ class esDocument:
         return extractAttr(res['hits']['hits'],attr_name)
 
 
-    def ExtractLinesForDisplay(self,doc_ids,indices_picked):
+    def ExtractLinesForDisplay(self,doc_ids,indices_picked,digits_print=8):
         lines_print = []
         for k,i in enumerate(indices_picked):
             id = doc_ids[i]
@@ -131,11 +131,11 @@ class esDocument:
                       'similarity': str(similarity(
                           np.squeeze(query_vector),
                           np.squeeze(json.loads(records['current']['vector']))
-                                              ))[:8],
+                                              ))[:digits_print],
                       'distance': str(distance(
                           np.squeeze(query_vector),
                           np.squeeze(json.loads(records['current']['vector']))
-                                              ))[:8],
+                                              ))[:digits_print],
                       'url': records['current']['url'],
                       'title': records['current']['title'],
                       'current': records['current']['content'],
