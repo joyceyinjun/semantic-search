@@ -99,29 +99,6 @@ def getRecordFromBucket(BUCKET,PREFIX):
     return records
 
 
-def importToES(records,esdoc):
-    for record in records:
-        record = dictContentDecode(json.loads(textClear(record)))
-            sentences_parsed = nltkSentenceParser.tokenize(record['content'].strip())
-
-            sentences_rdd = sc.parallelize(sentences_parsed)
-            vectors = sentences_rdd.map(bertVectorizeSingleSentence)\
-                           .reduce(lambda x,y: str(x)+VECTOR_SEPARATOR+str(y))\
-                           .split(VECTOR_SEPARATOR)
-
-            COUNT = 0
-            for i,sentence in enumerate(sentences_parsed):
-                doc_id = record['title']+str(COUNT).zfill(NUM_ID_LENGTH)
-                body =  {'title':record['title'],
-                         'content':sentence,
-                         'vector':vectors[i],
-                         'url':record['url']
-                        }
-                esdoc.PutIdBody(doc_id,body)
-                COUNT += 1
-
-
-
 def similarity(vec1,vec2):
     return np.inner(vec1,vec2)/\
            (np.linalg.norm(vec1)*np.linalg.norm(vec2))
