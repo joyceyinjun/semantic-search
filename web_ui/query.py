@@ -11,7 +11,7 @@ from util_es import esdoc
 rds = fetchRedis()
 
 
-N_CENTROIDS = 1
+N_CENTROIDS = 100
 N_QUERY_RETURN = 20
 
 KMEANS_PKL = ''
